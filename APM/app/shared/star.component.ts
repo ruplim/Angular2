@@ -19,7 +19,7 @@ export class StarComponent implements OnChanges {
    @Output() ratingClicked: EventEmitter<string> = new EventEmitter<string> ();
 
    ngOnChanges() : void {
-       console.log(' ***** star.component.ts :: Inside ngOnChanges()' + this.rating);
+     //  console.log(' ***** star.component.ts :: Inside ngOnChanges()' + this.rating);
       this.starWidth = this.rating * (86/5);
    }
    OnClick() :void {
