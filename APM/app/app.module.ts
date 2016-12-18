@@ -6,38 +6,23 @@ import { RouterModule} from '@angular/router';
 
 import { WelcomeComponent } from './home/welcome.component';
 import { AppComponent }  from './app.component';
-import { ProductListComponent} from './products/product-list.component';
-import { ProductDetailComponent} from './products/product-detail.component';
-import { ProductImage} from './products/product-image';
-import { ProductFilterPipe} from './products/product-filter.pipe';
-import { StarComponent } from './shared/star.component';
-import { ProductService} from './products/product.service';
+import { ProductModule} from './products/product.module';
 
 
 @NgModule({
   imports: [ 
-    BrowserModule, 
-    FormsModule, 
+    BrowserModule,  
     HttpModule,
     RouterModule.forRoot([
-      { path: 'products',    component: ProductListComponent },
-      { path: 'product/:id', component: ProductDetailComponent },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
-    ]) 
+    ]) ,
+    ProductModule
   ],
   declarations: [ 
     AppComponent, 
-    ProductListComponent, 
-    ProductFilterPipe, 
-    StarComponent,
-    ProductDetailComponent,
     WelcomeComponent 
-  ],
-  providers:[
-    ProductImage, 
-    ProductService
   ],
   bootstrap: [ AppComponent ]
 })
