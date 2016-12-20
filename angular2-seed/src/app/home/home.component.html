@@ -1,20 +1,73 @@
-<div class="container">
+<h3 *ngIf="languages.length == 0 ">Loading ... </h3>
+
+<div class="container" *ngIf="languages.length > 0">
     <h3>Angular 2 Forms</h3>
-    <form #form="ngForm" novalidate>
+    <form #form="ngForm"  (submit)="OnFormSubmit(form)" novalidate   >
+        
+        <!-- class="form-control"" takes the full width of the view port -->
+
+        <div class="form-group" [class.has-error]="firstNameRef.invalid && firstNameRef.touched">
+            <label class="control-label">First Name</label>
+            
+            <input #firstNameRef="ngModel" type="text" class="form-control" required name="firstName" 
+                  [(ngModel)]="model.firstName">
+
+                <div *ngIf="firstNameRef.invalid && firstNameRef.touched" class="alert alert-danger">
+                    First Name is required.
+                </div>
+        </div> 
+
+        <div class="form-group" [class.has-error]="lastNameRef.invalid && lastNameRef.touched">
+            <label class="control-label">Last Name</label>
+            
+            <input #lastNameRef="ngModel" type="text" class="form-control" required name="lastName" 
+                  [(ngModel)]="model.lastName">
+
+                <div *ngIf="lastNameRef.invalid && lastNameRef.touched" class="alert alert-danger">
+                    Last Name is required
+                </div>
+        </div>
+
+
+        <!--
+        <div class="form-group has-error" >
+            <label class="control-label">First Name</label>
+            
+            <input #firstNameRef="ngModel" type="text" class="form-control" required name="firstName" 
+                  [(ngModel)]="model.firstName">
+
+                <div *ngIf="firstNameRef.invalid && firstNameRef.touched" class="alert alert-danger">
+                    First Name is required.
+                </div>
+        </div>
+-->
+<!--
         <div class="form-group">
             <label>First Name</label>
-            <!-- form-control takes the full width of the view port -->
+            
             <input type="text" class="form-control" required name="firstName" 
                   [ngModel]="model.firstName" 
                   (ngModelChange) = "firstNameToUpperCase($event)"
                   />
         </div>
-
-        
+-->
+       <!--
         <div class="form-group">
             <label>Last Name</label>
-            <input type="text" class="form-control" required name="lastName" [(ngModel)] = "model.lastName" />
-        </div>  
+            <input #lastName="ngModel" type="text" class="form-control" required name="lastName" [(ngModel)] = "model.lastName" />
+        </div>
+
+       Dirty ::  {{lastName.dirty}}
+       -->
+
+        <!--
+        <div class="form-group">
+            <label>Last Name</label>
+            <input #lastName type="text" class="form-control" required name="lastName" [(ngModel)] = "model.lastName" />
+        </div>
+
+        Classes::     {{ lastName.className}}  
+        -->
 
         <div class="checkbox">
             <label>
@@ -37,19 +90,29 @@
                 1099
             </label>
         </div>
-      
-        <div class="form-group">
-            <label>Primary Language</label>
-            <select class="form-control" name="primaryLanguage"  [(ngModel)] = "model.primaryLanguage">
+   
+
+        <div class="form-group" [class.has-error]="hasPrimaryLanguageError">
+            <label class="control-label">Primary Language</label>
+            <select  #primaryLanguageTR class="form-control"  name="primaryLanguage"
+                [(ngModel)] = "model.primaryLanguage"
+                (blur) = "validatePrimaryLanguage(primaryLanguageTR.value)"
+                (change) = "validatePrimaryLanguage(primaryLanguageTR.value)">
+
+                 <option value="default">Select a language..</option>
                  <option *ngFor="let lang of languages">
                     {{lang}}
-                 </option>
+                 </option> 
             </select>
         </div> 
-        <button class="btn btn-primary" type="submit">OK</button>
-        
+
+        <button class="btn btn-primary"  [disabled]="form.invalid" type="submit">OK</button>
+    
+   <!--
+      <br><br>    
         Model : {{model| json}}
         <br>
-        Angular : {{ form.value | json }}       
+        Angular : {{ form.value | json }}
+-->       
     </form>
 </div>

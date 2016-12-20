@@ -14,6 +14,10 @@ import { RepoListComponent } from './github/repo-list/repo-list.component';
 import { RepoDetailComponent } from './github/repo-detail/repo-detail.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './contact/contact.component';
+import { FormPoster } from './services/form-poster.service';
+//import { DatepickerModule } from 'ng2-bootstrap';
+import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { TimepickerModule } from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,7 @@ import { ContactComponent } from './contact/contact.component';
     ContactComponent
   ],
   imports: [
+   DatepickerModule,    
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -33,7 +38,7 @@ import { ContactComponent } from './contact/contact.component';
     RouterModule.forRoot(rootRouterConfig, { useHash: true })
   ],
   providers: [
-    GithubService
+    GithubService, FormPoster
   ],
   bootstrap: [ AppComponent ]
 })
